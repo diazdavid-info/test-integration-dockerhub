@@ -49,7 +49,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: php-fpm/7.4.10/
-          file: ./Dockerfile
+          file: Dockerfile
           push: true
           tags: diazdavid/test-integration-dockerhub:7.4.10
 
