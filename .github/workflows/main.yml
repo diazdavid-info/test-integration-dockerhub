@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  build-php-7.4.7:
+  build-php-747:
     runs-on: ubuntu-latest
 
     steps:
@@ -33,7 +33,7 @@ jobs:
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
 
-  build-php-7.4.10:
+  build-php-7410:
     runs-on: ubuntu-latest
 
     steps:
