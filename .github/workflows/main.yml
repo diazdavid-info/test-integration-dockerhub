@@ -18,20 +18,21 @@ jobs:
       image-800-beta1: ${{ steps.filter.outputs.image-800-beta1 }}
     steps:
       # For pull requests it's not necessary to checkout the code
+      - uses: actions/checkout@v2
       - uses: dorny/paths-filter@v2
         id: filter
         with:
           filters: |
             image-5640:
-              - './php-fpm/5.6.40/**'
+              - 'php-fpm/5.6.40/**'
             image-746:
-              - './php-fpm/7.4.6/**'
+              - 'php-fpm/7.4.6/**'
             image-747:
-              - './php-fpm/7.4.7/**'
+              - 'php-fpm/7.4.7/**'
             image-7410:
-              - './php-fpm/7.4.10/**'
+              - 'php-fpm/7.4.10/**'
             image-800-beta1:
-              - './php-fpm/8.0.0-beta1/**'
+              - 'php-fpm/8.0.0-beta1/**'
 
   build-php-5640:
     needs: changes
