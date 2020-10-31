@@ -7,7 +7,35 @@ on:
     branches: [ master ]
 
 jobs:
+  changes:
+    runs-on: ubuntu-latest
+    # Set job outputs to values from filter step
+    outputs:
+      5640: ${{ steps.filter.outputs.5640 }}
+      746: ${{ steps.filter.outputs.746 }}
+      747: ${{ steps.filter.outputs.747 }}
+      7410: ${{ steps.filter.outputs.7410 }}
+      800-beta1: ${{ steps.filter.outputs.800-beta1 }}
+    steps:
+      # For pull requests it's not necessary to checkout the code
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            5640:
+              - './php-fpm/5.6.40/**'
+            746:
+              - './php-fpm/7.4.6/**'
+            747:
+              - './php-fpm/7.4.7/**'
+            7410:
+              - './php-fpm/7.4.10/**'
+            800-beta1:
+              - './php-fpm/8.0.0-beta1/**'
+
   build-php-5640:
+    needs: changes
+    if: ${{ needs.changes.outputs.5640 == 'true' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -34,6 +62,8 @@ jobs:
         run: echo ${{ steps.docker_build.outputs.digest }}
 
   build-php-746:
+    needs: changes
+    if: ${{ needs.changes.outputs.746 == 'true' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -60,6 +90,8 @@ jobs:
         run: echo ${{ steps.docker_build.outputs.digest }}
 
   build-php-747:
+    needs: changes
+    if: ${{ needs.changes.outputs.747 == 'true' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -86,6 +118,8 @@ jobs:
         run: echo ${{ steps.docker_build.outputs.digest }}
 
   build-php-7410:
+    needs: changes
+    if: ${{ needs.changes.outputs.7410 == 'true' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -112,6 +146,8 @@ jobs:
         run: echo ${{ steps.docker_build.outputs.digest }}
 
   build-php-800-beta1:
+    needs: changes
+    if: ${{ needs.changes.outputs.800-beta1 == 'true' }}
     runs-on: ubuntu-latest
 
     steps:
